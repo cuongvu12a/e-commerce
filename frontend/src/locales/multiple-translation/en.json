@@ -1,0 +1,33 @@
+{
+  "title": {
+    "pageNotFound": "Page Not Found ⚠️",
+    "loginPage": "Welcome to Vuexy! 👋"
+  },
+  "content": {
+    "pageNotFound": "The requested URL /error was not found on this server.",
+    "loginPage": "Please sign-in to your account and start the adventure",
+    "forgotPassword": "Forgot password?",
+    "newOnOurPlatform": "New on our platform?",
+    "createAnAccount": "Create an account"
+  },
+  "button": {
+    "backToHome": "Back to home",
+    "loginSubmit": "Sign in"
+  },
+  "label": {
+    "email": "Email",
+    "password": "Password",
+    "rememberMe": "Remember me"
+  },
+  "placeholder": {
+    "email": "vuexy@gmail.com",
+    "password": "⚉ ⚉ ⚉ ⚉ ⚉ ⚉ ⚉ ⚉"
+  },
+  "message": {
+    "requireEmail": "The Email field is required!",
+    "validEmail": "The Email field must be a valid email!",
+    "requirePassword": "The Password field is required!",
+    "validPassword": "The Password field must be a valid password!",
+    "minLengthPassword": "The Password field must be at least 8 characters!"
+  }
+}
