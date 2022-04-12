@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon backend/server.js",
+    "start": "node backend/server.js",
     "fe": "yarn --cwd ./frontend",
     "dev": "concurrently \"yarn start\" \"yarn fe start\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn --cwd ./frontend install && yarn --cwd ./frontend run build"
@@ -14,7 +14,6 @@
     "express": "^4.17.3"
   },
   "devDependencies": {
-    "concurrently": "^7.0.0",
-    "nodemon": "^2.0.15"
+    "concurrently": "^7.0.0"
   }
 }
