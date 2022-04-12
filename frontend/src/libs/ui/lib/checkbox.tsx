@@ -22,22 +22,22 @@ const CheckboxWrapper = styled.div<CheckboxWrapperProps>(
   ({ palette, theme }) => `
   .ant-checkbox-inner{
     background: ${theme.colors.bg.section};
-    border-color: ${theme.colors.border};
+    border-color: ${theme.colors.border} !important;
   }
   .ant-checkbox-input{
     &:hover, &:focus{
       & ~ .ant-checkbox-inner {
-        border-color: ${theme.colors[palette]};
+        border-color: ${theme.colors[palette]} !important;
       }
     }
   }
   .ant-checkbox-checked{
     .ant-checkbox-inner {
-      border-color: ${theme.colors[palette]};
+      border-color: ${theme.colors[palette]} !important;
       background: ${theme.colors[palette]};
     }
     &::after{
-      border-color: ${theme.colors[palette]};
+      border-color: ${theme.colors[palette]} !important;
     }
   }
   `

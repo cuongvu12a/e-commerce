@@ -1,5 +1,11 @@
 import React, { useState, useContext } from 'react';
-import { ThemeProvider, DefaultTheme } from 'styled-components';
+import {
+  ThemeProvider,
+  DefaultTheme,
+  createGlobalStyle,
+} from 'styled-components';
+
+import { STORAGE_KEYS, StorageGetItem, StorageSetItem } from '@api';
 
 type Mode = 'light' | 'dark';
 
@@ -17,6 +23,7 @@ const theme: Theme = {
         secondary: '#5E5873',
       },
       bg: {
+        primary: '#7367F01F',
         body: '#F8F8F8',
         section: '#FFFFFF',
       },
@@ -33,6 +40,7 @@ const theme: Theme = {
         secondary: '#D0D2D6',
       },
       bg: {
+        primary: '#7367F01F',
         body: '#161D31',
         section: '#283046',
       },
@@ -50,15 +58,19 @@ interface ValueContextMode {
 }
 
 const ContextMode = React.createContext<ValueContextMode>({
-  mode: 'light',
+  mode: StorageGetItem(STORAGE_KEYS.THEME) || 'light',
   switchMode: () => {},
 });
 
 export const ThemeWrapper = ({ children }: ThemeWrapperProps) => {
-  const [currentMode, setCurrentMode] = useState<Mode>('dark');
+  const [currentMode, setCurrentMode] = useState<Mode>(
+    StorageGetItem(STORAGE_KEYS.THEME) || 'light'
+  );
 
   const switchMode = () => {
-    setCurrentMode((current) => (current === 'light' ? 'dark' : 'light'));
+    const result = currentMode === 'light' ? 'dark' : 'light';
+    StorageSetItem(STORAGE_KEYS.THEME, result);
+    setCurrentMode(result);
   };
 
   return (
@@ -68,9 +80,29 @@ export const ThemeWrapper = ({ children }: ThemeWrapperProps) => {
         switchMode,
       }}
     >
-      <ThemeProvider theme={theme[currentMode]}>{children}</ThemeProvider>
+      <ThemeProvider theme={theme[currentMode]}>
+        <div className={`${currentMode} w-full h-full`}>{children}</div>
+        <GlobalStyle theme={theme[currentMode]} />
+      </ThemeProvider>
     </ContextMode.Provider>
   );
 };
+
+const GlobalStyle = createGlobalStyle<{ theme: DefaultTheme }>(
+  ({ theme }) => `
+  .ant-select-item.ant-select-item-option{
+    padding: 0;
+    .ant-select-item-option-content{
+      background: ${theme.colors.bg.section};
+    }
+  }
+  .ant-select-dropdown{
+    background: ${theme.colors.bg.section};
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 6px;
+  }
+`
+);
 
 export const useMode = () => useContext(ContextMode);

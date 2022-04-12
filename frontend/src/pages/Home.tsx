@@ -1,5 +1,7 @@
+import { withLayout } from '@containers/layout';
+
 const Home = () => {
   return <div>Home</div>;
 };
 
-export default Home;
+export default withLayout(Home);

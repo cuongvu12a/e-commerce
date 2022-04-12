@@ -4,7 +4,6 @@ import { ROUTE } from '@constants';
 import HomePage from '@pages/Home';
 import LoginPage from '@pages/Login';
 import NotFound from '@pages/NotFound';
-import { useMode } from '../theme';
 
 const routes: RouteObject[] = [
   { path: ROUTE.LOGIN, element: <LoginPage /> },
@@ -15,12 +14,9 @@ const routes: RouteObject[] = [
 const Content = () => useRoutes(routes);
 
 export default () => {
-  const { mode } = useMode();
   return (
     <BrowserRouter>
-      <div className={`w-full h-full ${mode}`}>
-        <Content />
-      </div>
+      <Content />
     </BrowserRouter>
   );
 };

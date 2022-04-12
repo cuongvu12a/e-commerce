@@ -2,6 +2,8 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import translationEn from './multiple-translation/en.json';
 import translationVi from './multiple-translation/vi.json';
+import { EnumLocales } from '@constants';
+import { StorageGetItem, STORAGE_KEYS } from '@api';
 
 // the translations
 // (tip move them in a JSON file and import them,
@@ -9,7 +11,7 @@ import translationVi from './multiple-translation/vi.json';
 const resources = {
   en: {
     translation: translationEn,
-  },
+  }, 
   vi: {
     translation: translationVi,
   },
@@ -19,7 +21,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: 'en', // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
+    lng: StorageGetItem(STORAGE_KEYS.LOCALES) || EnumLocales.EN, // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
     // you can use the i18n.changeLanguage function to change the language manually: https://www.i18next.com/overview/api#changelanguage
     // if you're using a language detector, do not define the lng option
 

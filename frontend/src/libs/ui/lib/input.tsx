@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Input as AntInput, InputProps as AntInputProps } from 'antd';
-import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import styled, { Palette } from 'styled-components';
-
+import { IconEye, IconEyeInvisible } from '@components/Icons';
 interface InputWrapperProps {
   palette: Palette;
 }
@@ -31,12 +30,13 @@ export const InputPassword = ({ palette, ...rest }: InputProps) => {
         type={isVisible ? 'text' : 'password'}
         className='pr-7'
       />
-      <span
-        className='icon-eye flex items-center cursor-pointer text-base text-gray-700 dark:text-neutral-700 hover:text-violet-600 dark:hover:text-violet-600'
+      <InputIconWrap
+        palette={palette}
+        className='flex items-center w-5 cursor-pointer text-base text-gray-700 dark:text-neutral-700'
         onClick={() => setIsVisible(!isVisible)}
       >
-        {isVisible ? <EyeInvisibleOutlined /> : <EyeOutlined />}
-      </span>
+        {isVisible ? <IconEyeInvisible /> : <IconEye />}
+      </InputIconWrap>
     </InputWrapper>
   );
 };
@@ -57,11 +57,17 @@ const InputWrapper = styled.div<InputWrapperProps>(
       color: ${theme.colors.text.placeholder};
     }
   }
-  .icon-eye{
-    position: absolute;
-    top: 50%;
-    right: 8px;
-    transform: translateY(-50%);
+`
+);
+
+const InputIconWrap = styled.span<InputWrapperProps>(
+  ({ palette, theme }) => `
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  &:hover{
+    color: ${theme.colors[palette]};
   }
 `
 );
