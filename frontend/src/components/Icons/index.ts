@@ -1,5 +1,6 @@
 export * from './BannerNotFound';
 export * from './BannerLogin';
+export * from './BannerRegister';
 export * from './Logo';
 export * from './SocialFacebook';
 export * from './SocialMail';

@@ -32,7 +32,7 @@ export const InputPassword = ({ palette, ...rest }: InputProps) => {
       />
       <InputIconWrap
         palette={palette}
-        className='flex items-center w-5 cursor-pointer text-base text-gray-700 dark:text-neutral-700'
+        className='flex items-center w-4 cursor-pointer text-base text-gray-700 dark:text-neutral-700'
         onClick={() => setIsVisible(!isVisible)}
       >
         {isVisible ? <IconEyeInvisible /> : <IconEye />}

@@ -1,23 +1,30 @@
 {
   "title": {
     "pageNotFound": "Page Not Found ⚠️",
-    "loginPage": "Welcome to Vuexy! 👋"
+    "loginPage": "Welcome to Vuexy! 👋",
+    "registerPage": "Adventure starts here 🚀"
   },
   "content": {
     "pageNotFound": "The requested URL /error was not found on this server.",
     "loginPage": "Please sign-in to your account and start the adventure",
+    "registerPage": "Make your app management easy and fun!",
     "forgotPassword": "Forgot password?",
     "newOnOurPlatform": "New on our platform?",
-    "createAnAccount": "Create an account"
+    "createAnAccount": "Create an account",
+    "alreadyHaveAnAccount":"Already have an account?",
+    "signInInstead":"Sign in instead"
   },
   "button": {
     "backToHome": "Back to home",
-    "loginSubmit": "Sign in"
+    "loginSubmit": "Sign in",
+    "registerSubmit": "Sign up"
   },
   "label": {
     "email": "Email",
     "password": "Password",
-    "rememberMe": "Remember me"
+    "rememberMe": "Remember me",
+    "agree": "I agree to",
+    "privacyPolicyTerms": "privacy policy & terms"
   },
   "placeholder": {
     "email": "vuexy@gmail.com",
