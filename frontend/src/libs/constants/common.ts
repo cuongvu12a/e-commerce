@@ -4,3 +4,4 @@ export enum EnumLocales {
 }
 export type ModeProductItem = 'grid' | 'list' | 'detail' | 'fromCart';
 
+export const aspectImageUpload = 16 / 9;

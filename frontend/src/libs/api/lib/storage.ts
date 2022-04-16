@@ -1,5 +1,4 @@
 export enum STORAGE_KEYS {
-  USER_INFO = 'USER_INFO',
   TOKEN = 'TOKEN',
   LOCALES = 'LOCALES',
   THEME = 'THEME',

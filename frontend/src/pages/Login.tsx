@@ -1,11 +1,19 @@
-import { Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
+import { Row, Col, Spin } from 'antd';
+import { Navigate } from 'react-router-dom';
 
+import { useAuthStatus } from '@hooks';
 import { FormLogin } from '@containers/Form';
 import { BannerLogin, Logo } from '@components/Icons';
 import { ROUTE } from '@constants';
 
 export const Login = () => {
+  const { isChecking, userInfo, error } = useAuthStatus();
+  if (isChecking)
+    return (
+      <Spin className='flex justify-center items-center h-full' size='large' />
+    );
+  if (userInfo) return <Navigate to={ROUTE.HOME} />;
   return (
     <>
       <Link to={ROUTE.HOME} className='text-violet-600'>

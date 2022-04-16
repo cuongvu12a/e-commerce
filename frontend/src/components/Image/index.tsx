@@ -7,7 +7,11 @@ interface ImageProps {
   className?: string;
 }
 
-export const Image = ({ src, alt, className }: ImageProps) => {
+export const Image = ({
+  src = 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/demo-1/img/1.3b312012.png',
+  alt,
+  className,
+}: ImageProps) => {
   return (
     <img
       className={`max-w-full object-cover object-center ${className || ''}`}

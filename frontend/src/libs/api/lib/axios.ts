@@ -1,11 +1,18 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { STORAGE_KEYS, StorageGetItem } from './storage';
 
-const axiosInstance = axios.create({ baseURL: '/api' });
+const axiosInstance = axios.create({
+  baseURL: 'https://d6b0-14-177-194-71.ap.ngrok.io/api',
+});
 
-// const handleRequestFulfilled = (config: AxiosRequestConfig<any>) => {
-//   console.log('handleRequestFulfilled', config);
-//   return config;
-// };
+const handleRequestFulfilled = (config: AxiosRequestConfig<any>) => {
+  if (!config?.headers) config.headers = {};
+  const token = StorageGetItem(STORAGE_KEYS.TOKEN);
+  if (token) {
+    config.headers.Authorization = `${token}`;
+  }
+  return config;
+};
 
 // const handleRequestRejected = (error: any) => {
 //   console.log('handleRequestRejected', error);
@@ -22,10 +29,10 @@ const axiosInstance = axios.create({ baseURL: '/api' });
 //   return Promise.reject(error);
 // };
 
-// axiosInstance.interceptors.request.use(
-//   handleRequestFulfilled,
-//   handleRequestRejected
-// );
+axiosInstance.interceptors.request.use(
+  handleRequestFulfilled
+  // handleRequestRejected
+);
 // axiosInstance.interceptors.response.use(
 //   handleResponseFulfilled,
 //   handleResponseRejected

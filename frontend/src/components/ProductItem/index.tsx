@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { Button, Ellipsis } from '@ui';
+import { Product } from '@models';
 import { ModeProductItem, ROUTE } from '@constants';
 import {
   IconShoppingCart,
@@ -18,9 +19,10 @@ import { AspectRatio, Image } from '@components/Image';
 
 interface ProductItemProps {
   mode: ModeProductItem;
+  product: Product;
 }
 
-export const ProductItem = ({ mode }: ProductItemProps) => {
+export const ProductItem = ({ mode, product }: ProductItemProps) => {
   const { t } = useTranslation();
 
   return (
@@ -29,7 +31,7 @@ export const ProductItem = ({ mode }: ProductItemProps) => {
         <div className='mx-auto' style={{ maxWidth: '10rem' }}>
           <Link to={ROUTE.SHOP}>
             <AspectRatio ratio={[3, 4]}>
-              <Image src='https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/demo-1/img/1.3b312012.png' />
+              <Image src={product.avatar} />
             </AspectRatio>
           </Link>
         </div>
@@ -39,7 +41,7 @@ export const ProductItem = ({ mode }: ProductItemProps) => {
           to={ROUTE.SHOP}
           className='text-gray-700 dark:text-neutral-700 hover:text-violet-600 dark:hover:text-violet-600 font-semibold'
         >
-          Apple Watch Series 5
+          {product.name}
         </Link>
         <span className='text-gray-800 dark:text-neutral-800 text-xs'>
           By&nbsp;
@@ -47,7 +49,7 @@ export const ProductItem = ({ mode }: ProductItemProps) => {
             to={ROUTE.SHOP}
             className='text-violet-600 hover:text-violet-600 font-semibold'
           >
-            Apple
+            {product.supplier.name}
           </Link>
         </span>
         <span className='text-gray-700 dark:text-neutral-700'>
@@ -77,7 +79,7 @@ export const ProductItem = ({ mode }: ProductItemProps) => {
         className='flex flex-col justify-center p-4 border-l border-gray-200 dark:border-neutral-200'
       >
         <span className='text-center text-lg font-medium text-violet-600'>
-          $339.99
+          {`$${product.price}`}
         </span>
         {mode === 'fromCart' && (
           <Button palette='primary' className='flex items-center w-full mt-4'>

@@ -15,7 +15,6 @@ export const UserActions = () => {
   const menu = useMemo(() => {
     const handleLogout = () => {
       StorageRemoveItem(STORAGE_KEYS.TOKEN);
-      StorageRemoveItem(STORAGE_KEYS.USER_INFO);
       navigate(ROUTE.LOGIN);
     };
 

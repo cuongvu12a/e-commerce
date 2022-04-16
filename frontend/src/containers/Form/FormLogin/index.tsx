@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { useDispatch, useSelector, login } from '@store';
+import { LoginFormValue } from '@models';
 import { REGEX_EMAIL, ROUTE } from '@constants';
 import { Divider } from '@components/Divider';
 import { SocialButtons } from '@containers/SocialButtons';
@@ -15,22 +17,21 @@ import {
 } from '@ui';
 
 export const FormLogin = () => {
+  const { loading, userInfo, error } = useSelector().auth;
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [form] = useForm();
 
-  const onFinish = async (values: any) => {
-    console.log(values);
-  };
+  form.setFieldsValue({
+    email: 'dungvql132@gmail.com',
+    password: '123',
+  });
 
-  // useEffect(() => {
-  //   if (!!user) {
-  //     return navigate(ROUTE.HOME);
-  //   }
-  //   if (!!token) {
-  //     dispatch(getProfile());
-  //   }
-  // }, [user]);
+  const onFinish = async (values: LoginFormValue) => {
+    dispatch(login(values));
+  };
 
   return (
     <div className='w-full max-w-md px-4'>
@@ -61,10 +62,10 @@ export const FormLogin = () => {
               className='flex-col text-xs'
               rules={[
                 { required: true, message: t`message.requirePassword` },
-                {
-                  min: 8,
-                  message: t`message.minLengthPassword`,
-                },
+                // {
+                //   min: 8,
+                //   message: t`message.minLengthPassword`,
+                // },
               ]}
             >
               <InputPassword

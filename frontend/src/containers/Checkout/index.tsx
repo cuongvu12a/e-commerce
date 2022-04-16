@@ -15,7 +15,7 @@ export const Checkout = () => {
         <Col span={18}>
           <Row gutter={28}>
             <Col span={24}>
-              <ProductItem mode='fromCart' />
+              {/* <ProductItem mode='fromCart' /> */}
             </Col>
           </Row>
         </Col>

@@ -23,15 +23,6 @@ export const FormRegister = () => {
     console.log(values);
   };
 
-  // useEffect(() => {
-  //   if (!!user) {
-  //     return navigate(ROUTE.HOME);
-  //   }
-  //   if (!!token) {
-  //     dispatch(getProfile());
-  //   }
-  // }, [user]);
-
   return (
     <div className='w-full max-w-md px-4'>
       <div className='text-2xl font-medium text-gray-800 dark:text-neutral-800'>
