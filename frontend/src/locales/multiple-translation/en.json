@@ -2,7 +2,10 @@
   "title": {
     "pageNotFound": "Page Not Found ⚠️",
     "loginPage": "Welcome to Vuexy! 👋",
-    "registerPage": "Adventure starts here 🚀"
+    "registerPage": "Adventure starts here 🚀",
+    "appsAndPages": "APPS & PAGES",
+    "addSupplier": "Add Supplier",
+    "editSupplier": "Edit Supplier"
   },
   "content": {
     "pageNotFound": "The requested URL /error was not found on this server.",
@@ -11,13 +14,30 @@
     "forgotPassword": "Forgot password?",
     "newOnOurPlatform": "New on our platform?",
     "createAnAccount": "Create an account",
-    "alreadyHaveAnAccount":"Already have an account?",
-    "signInInstead":"Sign in instead"
+    "alreadyHaveAnAccount": "Already have an account?",
+    "signInInstead": "Sign in instead",
+    "copyright": "COPYRIGHT © 2022 Vuexy, All rights Reserved",
+    "filters": "Filters",
+    "resultsFound": "results found",
+    "showingEntries": "Showing ${number} to ${number} of ${number} entries"
   },
   "button": {
     "backToHome": "Back to home",
     "loginSubmit": "Sign in",
-    "registerSubmit": "Sign up"
+    "registerSubmit": "Sign up",
+    "logout": "Logout",
+    "dashboard": "Dashboard",
+    "eCommerce": "eCommerce",
+    "analytics": "Analytics",
+    "shop": "Shop",
+    "wishlist": "Wishlist",
+    "checkout": "Checkout",
+    "viewInCart": "View In Cart",
+    "addToCart": "Add To Cart",
+    "manage": "Manage",
+    "supplier": "Supplier",
+    "addSupplier": "Add Supplier",
+    "remove": "Remove"
   },
   "label": {
     "email": "Email",
@@ -28,7 +48,9 @@
   },
   "placeholder": {
     "email": "vuexy@gmail.com",
-    "password": "⚉ ⚉ ⚉ ⚉ ⚉ ⚉ ⚉ ⚉"
+    "password": "⚉ ⚉ ⚉ ⚉ ⚉ ⚉ ⚉ ⚉",
+    "searchProduct": "Search Product",
+    "search": "Search..."
   },
   "message": {
     "requireEmail": "The Email field is required!",

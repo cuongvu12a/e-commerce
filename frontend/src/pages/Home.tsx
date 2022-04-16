@@ -1,7 +1,12 @@
 import { withLayout } from '@containers/layout';
+import { Image } from '@components/Upload';
 
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <Image />
+    </>
+  );
 };
 
 export default withLayout(Home);

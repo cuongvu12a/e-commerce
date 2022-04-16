@@ -1,11 +1,8 @@
 import React, { useState, useContext } from 'react';
-import {
-  ThemeProvider,
-  DefaultTheme,
-  createGlobalStyle,
-} from 'styled-components';
+import { ThemeProvider, DefaultTheme } from 'styled-components';
 
 import { STORAGE_KEYS, StorageGetItem, StorageSetItem } from '@api';
+import { GlobalStyle } from './GlobalStyle';
 
 type Mode = 'light' | 'dark';
 
@@ -15,6 +12,8 @@ const theme: Theme = {
   light: {
     colors: {
       primary: '#7367f0',
+      danger: '#EA5455',
+      warning: '#FF9F43',
       divider: '#E9EAEC',
       border: '#D8D6DE',
       text: {
@@ -23,15 +22,17 @@ const theme: Theme = {
         secondary: '#5E5873',
       },
       bg: {
-        primary: '#7367F01F',
         body: '#F8F8F8',
         section: '#FFFFFF',
+        "table-header": '#f3f2f7'
       },
     },
   },
   dark: {
     colors: {
       primary: '#7367f0',
+      danger: '#EA5455',
+      warning: '#FF9F43',
       divider: '#3B4253',
       border: '#404656',
       text: {
@@ -40,9 +41,9 @@ const theme: Theme = {
         secondary: '#D0D2D6',
       },
       bg: {
-        primary: '#7367F01F',
         body: '#161D31',
         section: '#283046',
+        "table-header": '#343d55'
       },
     },
   },
@@ -87,22 +88,5 @@ export const ThemeWrapper = ({ children }: ThemeWrapperProps) => {
     </ContextMode.Provider>
   );
 };
-
-const GlobalStyle = createGlobalStyle<{ theme: DefaultTheme }>(
-  ({ theme }) => `
-  .ant-select-item.ant-select-item-option{
-    padding: 0;
-    .ant-select-item-option-content{
-      background: ${theme.colors.bg.section};
-    }
-  }
-  .ant-select-dropdown{
-    background: ${theme.colors.bg.section};
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border-radius: 6px;
-  }
-`
-);
 
 export const useMode = () => useContext(ContextMode);

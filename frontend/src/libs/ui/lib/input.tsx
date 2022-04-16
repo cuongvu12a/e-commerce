@@ -4,31 +4,46 @@ import styled, { Palette } from 'styled-components';
 import { IconEye, IconEyeInvisible } from '@components/Icons';
 interface InputWrapperProps {
   palette: Palette;
+  isTransformPlaceholder?: boolean;
 }
 
 interface InputProps extends AntInputProps, InputWrapperProps {
   containerClass?: string;
 }
 
-export const Input = ({ palette, ...rest }: InputProps) => {
+export const Input = ({
+  palette,
+  isTransformPlaceholder,
+  containerClass,
+  ...rest
+}: InputProps) => {
   return (
-    <InputWrapper palette={palette}>
+    <InputWrapper
+      palette={palette}
+      isTransformPlaceholder={isTransformPlaceholder}
+      className={`${containerClass || ''}`}
+    >
       <AntInput {...rest} />
     </InputWrapper>
   );
 };
 
-export const InputPassword = ({ palette, ...rest }: InputProps) => {
+export const InputPassword = ({
+  palette,
+  containerClass,
+  className,
+  ...rest
+}: InputProps) => {
   const [isVisible, setIsVisible] = useState(false);
   return (
     <InputWrapper
       palette={palette}
-      className={`${rest?.className || ''} relative`}
+      className={`${containerClass || ''} relative`}
     >
       <AntInput
         {...rest}
         type={isVisible ? 'text' : 'password'}
-        className='pr-7'
+        className={`${className || ''} pr-7`}
       />
       <InputIconWrap
         palette={palette}
@@ -42,7 +57,7 @@ export const InputPassword = ({ palette, ...rest }: InputProps) => {
 };
 
 const InputWrapper = styled.div<InputWrapperProps>(
-  ({ palette, theme }) => `
+  ({ palette, isTransformPlaceholder, theme }) => `
   .ant-input{
     height: 38px;
     border-radius: 6px;
@@ -55,6 +70,18 @@ const InputWrapper = styled.div<InputWrapperProps>(
     }
     &::placeholder{
       color: ${theme.colors.text.placeholder};
+    }
+    ${
+      isTransformPlaceholder &&
+      `
+        &::placeholder{
+          transition: all .1s ease;
+        }
+        &:focus::placeholder{
+          transform: translateX(6px);
+        }
+
+      `
     }
   }
 `
@@ -71,3 +98,5 @@ const InputIconWrap = styled.span<InputWrapperProps>(
   }
 `
 );
+
+export const InputSearch = AntInput.Search;

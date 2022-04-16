@@ -30,9 +30,18 @@ module.exports = {
         800: '#D0D2D6',
       },
       violet: {
-        100: '#7367F01F',
         600: '#7367F0',
       },
+      orange: {
+        600: '#FF9F43',
+      },
+      red: {
+        600: '#EA5455',
+      },
+      white: '#FFFFFF',
+    },
+    'flex-2': {
+      flex: '2 2 0%',
     },
   },
   plugins: [],

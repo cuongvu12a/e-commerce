@@ -62,7 +62,7 @@ const DropdownWrapper = styled.div<SelectWrapperProps>(
   ({ palette, theme }) => `
   .ant-select-item-option-active .option-selected{
     color: ${theme.colors[palette]};
-    background: ${theme.colors.bg[palette]};
+    background: ${theme.colors[palette]}1F;
   }
 `
 );
