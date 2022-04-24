@@ -15,7 +15,7 @@ export const withLayout = (Component: React.FC) => () => {
     return (
       <Spin className='flex justify-center items-center h-full' size='large' />
     );
-  if (!userInfo) return <Navigate to={ROUTE.LOGIN} />;
+  // if (!userInfo) return <Navigate to={ROUTE.LOGIN} />;
   return (
     <Row className='relative w-full h-full bg-gray-100 dark:bg-neutral-100'>
       <Col>

@@ -14,34 +14,8 @@ app.use(cors());
 
 app.use('/api/upload', uploadRoutes);
 
-app.post('/api/auth/login', (req, res) => {
-  const result = {
-    responseData: {
-      user: req.body,
-      token: 'token',
-      refetchToken: '',
-    },
-    success: true,
-    message: 'test error',
-  };
-  res.json(result);
-});
-
-app.get('/api/auth/profile', (req, res) => {
-  const result = {
-    responseData: {
-      user: {
-        username: 'hello',
-        password: '',
-      },
-      token: 'token',
-      refetchToken: '',
-    },
-    success: true,
-    message: 'test error',
-  };
-  res.json(result);
-});
+// const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Serve frontend
 if (process.env.NODE_ENV === 'production') {

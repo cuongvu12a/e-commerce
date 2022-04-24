@@ -1,90 +1,97 @@
 import React, { useState, useRef } from 'react';
-import ReactCrop, { Crop, centerCrop, makeAspectCrop } from 'react-image-crop';
+import ReactCrop, {
+  centerCrop,
+  makeAspectCrop,
+  Crop,
+  PixelCrop,
+} from 'react-image-crop';
 
-import { uploadImage, login } from '@api';
+import { uploadImage } from '@api';
 import { Button, Modal } from '@ui';
 import { aspectImageUpload } from '@constants';
 
 export const Image = () => {
   const [visible, setVisible] = useState(false);
-  const [file, setFile] = useState<string>('');
+  const [imgSrc, setImgSrc] = useState('');
   const [crop, setCrop] = useState<Crop>();
-  const [result, setResult] = useState('');
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
+  const [file, setFile] = useState<File | null>();
   const imgRef = useRef<HTMLImageElement>(null);
-  // const [scale, setScale] = useState(1);
-  // const [rotate, setRotate] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const showModal = () => {
+    setImgSrc('');
+    setFile(null);
+    if (!inputRef.current) return;
+    inputRef.current.value = '';
     setVisible(true);
   };
 
-  const handleOk = () => {
-    handleCancel();
+  const handleOk = async () => {
+    const image = imgRef.current;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (
+      !ctx ||
+      !image?.naturalWidth ||
+      !image.naturalHeight ||
+      !completedCrop?.width ||
+      !completedCrop.height
+    )
+      return;
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = Math.floor(completedCrop.width * scaleX);
+    canvas.height = Math.floor(completedCrop.height * scaleY);
+    const cropX = completedCrop.x * scaleX;
+    const cropY = completedCrop.y * scaleY;
+    ctx.drawImage(
+      image,
+      cropX,
+      cropY,
+      image.naturalWidth,
+      image.naturalHeight,
+      0,
+      0,
+      image.naturalWidth,
+      image.naturalHeight
+    );
+
+    const blob = await toBlob(canvas);
+
+    if (!blob || !file?.name) return;
+    const currentFile = new File([blob], file?.name, { type: 'image/png' });
+    const formData = new FormData();
+    if (!file) return;
+    formData.append('image', currentFile, file?.name);
+    const res = await uploadImage(formData);
+    console.log(res);
+    // handleCancel();
   };
 
   const handleCancel = () => {
     setVisible(false);
-    setFile('');
-    setCrop(undefined);
   };
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-    setFile(URL.createObjectURL(e.target.files[0]));
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setCrop(undefined);
+      const reader = new FileReader();
+      reader.addEventListener(
+        'load',
+        () => !!reader?.result && setImgSrc(reader.result.toString() || '')
+      );
+      reader.readAsDataURL(e.target.files[0]);
+      setFile(e.target.files[0]);
+    }
   };
 
-  const onImageLoad = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    const { width, height } = e.currentTarget;
-
-    const crop = centerCrop(
-      makeAspectCrop(
-        {
-          width: 90,
-          unit: '%',
-        },
-        aspectImageUpload,
-        width,
-        height
-      ),
-      width,
-      height
-    );
-
-    setCrop(crop);
-  };
-
-  const getCroppedImage = () => {
-    const canvas = document.createElement('canvas');
-    const image = imgRef.current;
-    const ctx = canvas.getContext('2d');
-    if (!image || !crop?.width || !crop?.height) return;
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    canvas.width = crop.width;
-    canvas.height = crop.height;
-    ctx?.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      crop.width,
-      crop.height
-    );
-    const base64Image = canvas.toDataURL('image/jpeg');
-    setResult(base64Image);
-    return;
-    canvas.toBlob(async (blob) => {
-      if (!blob) return;
-      const formData = new FormData();
-      formData.append('image', new File([blob], 'myfile.png'));
-      const res = await uploadImage(formData);
-      // const res = await login({});
-      console.log(res);
-    });
-  };
+  function handleImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
+    if (aspectImageUpload) {
+      const { width, height } = e.currentTarget;
+      setCrop(centerAspectCrop(width, height, aspectImageUpload));
+    }
+  }
 
   return (
     <>
@@ -97,30 +104,68 @@ export const Image = () => {
         onCancel={handleCancel}
         width={1200}
         footer={
-          <Button palette='primary' type='primary' onClick={handleOk}>
+          <Button
+            palette='primary'
+            type='primary'
+            onClick={handleOk}
+            disabled={!imgSrc || !file}
+          >
             Ok
           </Button>
         }
       >
-        <input type='file' accept='image/*' onChange={handleFileChange} />
-
-        {file && (
+        <input
+          ref={inputRef}
+          type='file'
+          accept='image/*'
+          onChange={handleFileChange}
+        />
+        {!!imgSrc && (
           <ReactCrop
             crop={crop}
-            onChange={(c) => setCrop(c)}
+            onChange={(_, percentCrop) => setCrop(percentCrop)}
+            onComplete={(c) => setCompletedCrop(c)}
             aspect={aspectImageUpload}
           >
-            {/* <img src={file} /> */}
             <img
               ref={imgRef}
-              src={file}
-              onLoad={onImageLoad}
+              alt='Crop me'
+              src={imgSrc}
               // style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
+              onLoad={handleImageLoad}
             />
           </ReactCrop>
         )}
-        {result && <img src={result} />}
       </Modal>
     </>
   );
 };
+
+function centerAspectCrop(
+  mediaWidth: number,
+  mediaHeight: number,
+  aspect: number
+) {
+  return centerCrop(
+    makeAspectCrop(
+      {
+        unit: '%',
+        width: 90,
+      },
+      aspect,
+      mediaWidth,
+      mediaHeight
+    ),
+    mediaWidth,
+    mediaHeight
+  );
+}
+
+function toBlob(canvas: HTMLCanvasElement): Promise<Blob> {
+  return new Promise((resolve) => {
+    canvas.toBlob((blob) => {
+      if (!blob) return;
+      resolve(blob);
+    });
+  });
+}

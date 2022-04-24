@@ -92,7 +92,7 @@ export const FormRegister = () => {
           className='text-violet-600'
         >{t`content.signInInstead`}</Link>
       </div>
-      <Divider containerClass='mb-2' />
+      <Divider containerClass='mb-2' content='or' />
       <SocialButtons />
     </div>
   );

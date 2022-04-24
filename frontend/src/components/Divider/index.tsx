@@ -2,9 +2,19 @@ import styled from 'styled-components';
 
 interface DividerProps {
   containerClass?: string;
+  content?: string;
 }
 
-export const Divider = ({ containerClass }: DividerProps) => {
+export const Divider = ({ containerClass, content }: DividerProps) => {
+  if (!content)
+    return (
+      <div
+        className={`${
+          containerClass || ''
+        } w-full bg-gray-200 dark:bg-neutral-200`}
+        style={{ height: 1 }}
+      ></div>
+    );
   return (
     <DividerWrapper
       className={`${

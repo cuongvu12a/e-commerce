@@ -32,6 +32,9 @@ module.exports = {
       violet: {
         600: '#7367F0',
       },
+      green: {
+        600: '#28C76F'
+      },
       orange: {
         600: '#FF9F43',
       },

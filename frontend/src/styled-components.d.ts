@@ -1,7 +1,7 @@
 import 'styled-components';
 
 declare module 'styled-components' {
-  export type Palette = 'primary' | 'danger' | 'warning';
+  export type Palette = 'primary' | 'success' | 'warning' | 'danger';
 
   export type TextColors = 'primary' | 'secondary' | 'placeholder';
 

@@ -5,7 +5,8 @@
     "registerPage": "Adventure starts here 🚀",
     "appsAndPages": "APPS & PAGES",
     "addSupplier": "Add Supplier",
-    "editSupplier": "Edit Supplier"
+    "editSupplier": "Edit Supplier",
+    "priceDetails": "Price Details"
   },
   "content": {
     "pageNotFound": "The requested URL /error was not found on this server.",
@@ -19,7 +20,11 @@
     "copyright": "COPYRIGHT © 2022 Vuexy, All rights Reserved",
     "filters": "Filters",
     "resultsFound": "results found",
-    "showingEntries": "Showing ${number} to ${number} of ${number} entries"
+    "showingEntries": "Showing ${number} to ${number} of ${number} entries",
+    "priceOfItems": "Price of ${number} items",
+    "deliveryCharges": "Delivery Charges",
+    "amountPayable": "Amount Payable",
+    "free": "Free"
   },
   "button": {
     "backToHome": "Back to home",

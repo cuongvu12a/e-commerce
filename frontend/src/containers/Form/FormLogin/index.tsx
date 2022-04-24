@@ -102,7 +102,7 @@ export const FormLogin = () => {
           className='text-violet-600'
         >{t`content.createAnAccount`}</Link>
       </div>
-      <Divider containerClass='mb-2' />
+      <Divider containerClass='mb-2' content='or'/>
       <SocialButtons />
     </div>
   );
