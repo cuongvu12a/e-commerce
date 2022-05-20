@@ -31,7 +31,7 @@ export const ProductItem = ({ mode, product }: ProductItemProps) => {
         <div className='mx-auto' style={{ maxWidth: '10rem' }}>
           <Link to={ROUTE.SHOP}>
             <AspectRatio ratio={[3, 4]}>
-              <Image src={product.avatar} />
+              <Image src={product.material} />
             </AspectRatio>
           </Link>
         </div>
@@ -49,7 +49,7 @@ export const ProductItem = ({ mode, product }: ProductItemProps) => {
             to={ROUTE.SHOP}
             className='text-violet-600 hover:text-violet-600 font-semibold'
           >
-            {product.supplier.name}
+            Admin
           </Link>
         </span>
         <span className='text-gray-700 dark:text-neutral-700'>
@@ -64,14 +64,7 @@ export const ProductItem = ({ mode, product }: ProductItemProps) => {
           className='text-gray-700 dark:text-neutral-700'
           style={{ lineHeight: 1.5 }}
         >
-          On Retina display that never sleeps, so it’s easy to see the time and
-          other important information, without raising or tapping the display.
-          New location features, from a built-in compass to current elevation,
-          help users better navigate their day, while international emergency
-          calling1 allows customers to call emergency services directly from
-          Apple Watch in over 150 countries, even without iPhone nearby. Apple
-          Watch Series 5 is available in a wider range of materials, including
-          aluminium, stainless steel, ceramic and an all-new titanium.
+          {product.description}
         </Ellipsis>
       </Col>
       <Col

@@ -2,7 +2,7 @@ import { useState, ReactNode, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, Col } from 'antd';
 
-import { getAllProduct } from '@api';
+// import { getAllProduct } from '@api';
 import { Product } from '@models';
 import { RadioGroup, Pagination } from '@ui';
 import { IconGrid, IconList } from '@components/Icons';
@@ -26,9 +26,9 @@ export const Shop = () => {
 
   useEffect(() => {
     const handle = async () => {
-      const res = await getAllProduct();
-      if (!res) return;
-      setProducts(res.data);
+      // const res = await getAllProduct();
+      // if (!res) return;
+      // setProducts(res);
     };
     handle();
   }, []);

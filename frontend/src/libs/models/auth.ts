@@ -1,5 +1,5 @@
 export interface LoginPayload {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -8,18 +8,21 @@ export interface LoginFormValue extends LoginPayload {
 }
 
 export interface UserInfo {
-  birthday: string;
-  email: string;
-  firstname: string;
-  gender: string;
-  lastname: string;
-  password: string;
-  phone: string;
-  _id: number;
+  city: string;
+  district:  string;
+  email:  string;
+  firstName:  string;
+  is_staff: boolean;
+  lastName:  string;
+  midName:  string;
+  nation:  string;
+  numberHouse: string;
+  phone:  string;
+  street:  string;
+  username:  string;
 }
 
-export interface LoginResponse {
-  userInfo: UserInfo;
+export interface LoginResponse extends UserInfo{
   token: string;
 }
 

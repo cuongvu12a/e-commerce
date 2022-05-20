@@ -4,8 +4,8 @@
     "loginPage": "Welcome to Vuexy! 👋",
     "registerPage": "Adventure starts here 🚀",
     "appsAndPages": "APPS & PAGES",
-    "addSupplier": "Add Supplier",
-    "editSupplier": "Edit Supplier",
+    "addLaptop": "Add Laptop",
+    "editLaptop": "Edit Laptop",
     "priceDetails": "Price Details"
   },
   "content": {
@@ -40,8 +40,8 @@
     "viewInCart": "View In Cart",
     "addToCart": "Add To Cart",
     "manage": "Manage",
-    "supplier": "Supplier",
-    "addSupplier": "Add Supplier",
+    "laptop": "Laptop",
+    "addLaptop": "Add Laptop",
     "remove": "Remove"
   },
   "label": {

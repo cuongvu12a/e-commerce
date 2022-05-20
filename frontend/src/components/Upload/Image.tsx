@@ -6,11 +6,17 @@ import ReactCrop, {
   PixelCrop,
 } from 'react-image-crop';
 
+import { Image as ImageComponent, AspectRatio } from '@components/Image';
 import { uploadImage } from '@api';
 import { Button, Modal } from '@ui';
 import { aspectImageUpload } from '@constants';
 
-export const Image = () => {
+interface ImageProps {
+  handleResult?: (res: string) => void;
+  currentImage?: string;
+}
+
+export const Image = ({ handleResult, currentImage }: ImageProps) => {
   const [visible, setVisible] = useState(false);
   const [imgSrc, setImgSrc] = useState('');
   const [crop, setCrop] = useState<Crop>();
@@ -22,9 +28,9 @@ export const Image = () => {
   const showModal = () => {
     setImgSrc('');
     setFile(null);
+    setVisible(true);
     if (!inputRef.current) return;
     inputRef.current.value = '';
-    setVisible(true);
   };
 
   const handleOk = async () => {
@@ -65,8 +71,8 @@ export const Image = () => {
     if (!file) return;
     formData.append('image', currentFile, file?.name);
     const res = await uploadImage(formData);
-    console.log(res);
-    // handleCancel();
+    handleResult && handleResult(res);
+    handleCancel();
   };
 
   const handleCancel = () => {
@@ -95,9 +101,17 @@ export const Image = () => {
 
   return (
     <>
-      <Button palette='primary' type='primary' onClick={showModal}>
-        Click me!
-      </Button>
+      <button onClick={showModal} className='w-full'>
+        <AspectRatio ratio={[16, 9]}>
+          <ImageComponent
+            src={
+              currentImage
+                ? currentImage
+                : 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg'
+            }
+          />
+        </AspectRatio>
+      </button>
       <Modal
         title='Upload image'
         visible={visible}

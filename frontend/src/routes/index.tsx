@@ -8,7 +8,8 @@ import NotFound from '@pages/NotFound';
 import Shop from '@pages/Shop';
 import Wishlist from '@pages/Wishlist';
 import Checkout from '@pages/Checkout';
-import Supplier from '@pages/Supplier';
+import Laptop from '@pages/Laptop';
+import Clothes from '@pages/Clothes';
 
 const routes: RouteObject[] = [
   { path: ROUTE.LOGIN, element: <LoginPage /> },
@@ -16,7 +17,8 @@ const routes: RouteObject[] = [
   { path: ROUTE.SHOP, element: <Shop /> },
   { path: ROUTE.WISHLIST, element: <Wishlist /> },
   { path: ROUTE.CHECKOUT, element: <Checkout /> },
-  { path: ROUTE.SUPPLIER, element: <Supplier /> },
+  { path: ROUTE.LAPTOP, element: <Laptop /> },
+  { path: ROUTE.CLOTHES, element: <Clothes /> },
   { path: ROUTE.HOME, element: <HomePage /> },
   { path: ROUTE.NOT_FOUND, element: <NotFound /> },
 ];

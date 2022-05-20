@@ -5,7 +5,6 @@ import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 import { replaceArrayNumberFromText } from '@utils';
 import { Product } from '@models';
-import { getAllProduct } from '@api';
 import { Pagination } from '@ui';
 import { ProductItem } from '@components/ProductItem';
 import { Divider } from '@components/Divider';
@@ -16,9 +15,7 @@ export const Checkout = () => {
 
   useEffect(() => {
     const handle = async () => {
-      const res = await getAllProduct();
-      if (!res) return;
-      setProducts(res.data);
+      // setProducts(res.data);
     };
     handle();
   }, []);

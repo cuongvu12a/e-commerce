@@ -6,7 +6,7 @@ import {
 } from '@models';
 import {
   login as apiLogin,
-  getProfile as apiGetProfile ,
+  getProfile as apiGetProfile,
   STORAGE_KEYS,
   StorageSetItem,
   StorageRemoveItem,
@@ -17,15 +17,14 @@ export const login = (payload: LoginFormValue) => async (dispatch: SafeAny) => {
     dispatch({
       type: AUTH_ACTION_TYPE.AUTH_REQUEST,
     });
-    const { email, password, remember } = payload;
-    const res = await apiLogin({ email, password });
-    if (!res || !res.success) throw new Error(res.message);
+    const { username, password, remember } = payload;
+    const { token, ...rest } = await apiLogin({ username, password });
     dispatch({
       type: AUTH_ACTION_TYPE.AUTH_SUCCESS,
-      payload: res.data.userInfo,
+      payload: rest,
     });
     if (!remember) return;
-    StorageSetItem(STORAGE_KEYS.TOKEN, res.data.token);
+    StorageSetItem(STORAGE_KEYS.TOKEN, token);
   } catch (error: SafeAny) {
     dispatch({
       type: AUTH_ACTION_TYPE.AUTH_FAIL,
@@ -37,16 +36,15 @@ export const login = (payload: LoginFormValue) => async (dispatch: SafeAny) => {
   }
 };
 
-export const getProfile  = () => async (dispatch: SafeAny) => {
+export const getProfile = () => async (dispatch: SafeAny) => {
   try {
     dispatch({
       type: AUTH_ACTION_TYPE.AUTH_REQUEST,
     });
-    const res = await apiGetProfile ();
-    if (!res || !res.success) throw new Error(res.message);
+    const data = await apiGetProfile();
     dispatch({
       type: AUTH_ACTION_TYPE.AUTH_SUCCESS,
-      payload: res.data.userInfo,
+      payload: data,
     });
   } catch (error: SafeAny) {
     StorageRemoveItem(STORAGE_KEYS.TOKEN);

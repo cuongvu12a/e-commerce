@@ -25,8 +25,8 @@ export const FormLogin = () => {
   const [form] = useForm();
 
   form.setFieldsValue({
-    email: 'dungvql132@gmail.com',
-    password: '123',
+    username: 'cuongvu',
+    password: '123456',
   });
 
   const onFinish = async (values: LoginFormValue) => {
@@ -42,15 +42,15 @@ export const FormLogin = () => {
       <>
         <Form form={form} onFinish={onFinish} name='form-login'>
           <FormItem
-            name='email'
+            name='username'
             label={t`label.email`}
             className='flex-col text-xs'
             rules={[
               { required: true, message: t`message.requireEmail` },
-              {
-                pattern: REGEX_EMAIL,
-                message: t`message.validEmail`,
-              },
+              // {
+              //   pattern: REGEX_EMAIL,
+              //   message: t`message.validEmail`,
+              // },
             ]}
           >
             <Input placeholder={t`placeholder.email`} palette='primary' />
@@ -102,7 +102,7 @@ export const FormLogin = () => {
           className='text-violet-600'
         >{t`content.createAnAccount`}</Link>
       </div>
-      <Divider containerClass='mb-2' content='or'/>
+      <Divider containerClass='mb-2' content='or' />
       <SocialButtons />
     </div>
   );

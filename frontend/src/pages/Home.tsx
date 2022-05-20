@@ -4,7 +4,6 @@ import { Image } from '@components/Upload';
 const Home = () => {
   return (
     <>
-      <Image />
     </>
   );
 };

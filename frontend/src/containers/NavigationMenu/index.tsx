@@ -89,8 +89,13 @@ export const NavigationMenu = () => {
           title={t`button.manage`}
         >
           <MenuItem
-            key={ROUTE.SUPPLIER}
-            content={t`button.supplier`}
+            key={ROUTE.LAPTOP}
+            content={t`button.laptop`}
+            icon={<IconCircle className='w-2' />}
+          />
+          <MenuItem
+            key={ROUTE.CLOTHES}
+            content={'Clothes'}
             icon={<IconCircle className='w-2' />}
           />
         </SubMenu>

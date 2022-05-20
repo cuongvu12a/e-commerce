@@ -2,14 +2,25 @@ import { Media } from './common';
 import { Supplier } from './supplier';
 
 export interface Product {
+  barCode: string;
+  description: string;
+  discount: number;
   id: number;
-  avatar: string;
-  createdAt: string;
-  discount: string;
-  inventory: string;
+  material: string;
+  price: number;
   name: string;
-  price: string;
+}
+
+export interface Laptop extends Product {
+  CPU: string;
+  GPU: string;
+  screen: string;
+}
+
+export interface Clothes extends Product {
   type: string;
-  medias: Media[];
-  supplier: Supplier;
+  size: string;
+  season: string;
+  brand: string;
+  origin: string;
 }

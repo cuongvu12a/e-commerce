@@ -1,15 +1,13 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { STORAGE_KEYS, StorageGetItem } from './storage';
 
-const axiosInstance = axios.create({
-  baseURL: 'https://d6b0-14-177-194-71.ap.ngrok.io/api',
-});
+const axiosInstance = axios.create({});
 
 const handleRequestFulfilled = (config: AxiosRequestConfig<any>) => {
   if (!config?.headers) config.headers = {};
   const token = StorageGetItem(STORAGE_KEYS.TOKEN);
   if (token) {
-    config.headers.Authorization = `${token}`;
+    config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 };

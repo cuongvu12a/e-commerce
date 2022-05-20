@@ -9,9 +9,3 @@ export interface Address {
   street: string;
   _id: number;
 }
-
-export interface BaseResponse<T> {
-  message: string;
-  success: boolean;
-  data: T;
-}
