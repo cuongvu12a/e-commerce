@@ -29,7 +29,6 @@ export interface Book extends Product {
   ISBN: string;
   title: string;
   summary: string;
-  publicationDate: Date;
   numberOfPage: number;
   language: string;
 }

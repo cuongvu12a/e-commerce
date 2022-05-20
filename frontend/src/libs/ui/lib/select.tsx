@@ -62,7 +62,7 @@ const SelectWrapper = styled.div<SelectWrapperProps>(
     height: 38px !important;
     border-radius: 6px !important;
   }
-  .ant-select-open , .ant-select:hover {
+  .ant-select-focused , .ant-select:hover {
     .ant-select-selector{
       border-color: ${theme.colors[palette]} !important;
       box-shadow: 0 0 6px 0 ${theme.colors[palette]}!important;

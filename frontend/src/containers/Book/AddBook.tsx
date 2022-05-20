@@ -18,7 +18,6 @@ export const AddBook = ({ data, visible, onClose }: AddClothesProps) => {
   const [form] = useForm();
   const handleFinish = async (values: Book) => {
     values.material = media;
-    values.publicationDate = new Date();
     if (!data) {
       const res = await createBook(values);
     } else {

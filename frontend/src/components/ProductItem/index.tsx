@@ -18,11 +18,10 @@ import {
 import { AspectRatio, Image } from '@components/Image';
 
 interface ProductItemProps {
-  mode: ModeProductItem;
   product: Product;
 }
 
-export const ProductItem = ({ mode, product }: ProductItemProps) => {
+export const ProductItem = ({ product }: ProductItemProps) => {
   const { t } = useTranslation();
 
   return (
@@ -74,39 +73,26 @@ export const ProductItem = ({ mode, product }: ProductItemProps) => {
         <span className='text-center text-lg font-medium text-violet-600'>
           {`$${product.price}`}
         </span>
-        {mode === 'fromCart' && (
-          <Button palette='primary' className='flex items-center w-full mt-4'>
-            <IconRemove className='w-4 ' />
-            {/* <IconHeartEmpty className='w-4 text-gray-700 dark:text-neutral-700' /> */}
-            <span className='text-sm'>{t`button.remove`}</span>
-          </Button>
-        )}
+        {/* <Button palette='primary' className='flex items-center w-full mt-4'>
+          <IconRemove className='w-4 ' />
+          <span className='text-sm'>{t`button.remove`}</span>
+        </Button> */}
         <Button
           palette='primary'
-          type={mode === 'fromCart' ? 'primary' : 'default'}
+          type={'primary'}
           className='flex items-center w-full mt-4'
         >
-          {/* <IconHeart className='w-4 text-red-600' /> */}
-          <IconHeartEmpty
-            className={`w-4  ${
-              mode === 'fromCart'
-                ? 'text-white'
-                : 'text-gray-700 dark:text-neutral-700'
-            }`}
-          />
+          <IconHeartEmpty className={`w-4  ${'text-white'}`} />
           <span className='text-sm'>{t`button.wishlist`}</span>
         </Button>
-        {mode !== 'fromCart' && (
-          <Button
-            palette='primary'
-            type='primary'
-            className='flex items-center w-full mt-4'
-          >
-            <IconShoppingCart className='w-4' />
-            {/* <span className='text-sm'>{t`button.viewInCart`}</span> */}
-            <span className='text-sm'>{t`button.addToCart`}</span>
-          </Button>
-        )}
+        <Button
+          palette='primary'
+          type='primary'
+          className='flex items-center w-full mt-4'
+        >
+          <IconShoppingCart className='w-4' />
+          <span className='text-sm'>{t`button.addToCart`}</span>
+        </Button>
       </Col>
     </ProductItemWrapper>
   );

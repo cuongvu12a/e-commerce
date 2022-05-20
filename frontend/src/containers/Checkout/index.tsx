@@ -27,7 +27,7 @@ export const Checkout = () => {
           <Row gutter={[28, 28]}>
             {products.map((el) => (
               <Col span={24} key={el.id}>
-                <ProductItem mode={'fromCart'} product={el} />
+                <ProductItem product={el} />
               </Col>
             ))}
           </Row>

@@ -2,10 +2,9 @@ import { useState, ReactNode, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, Col } from 'antd';
 
-// import { getAllProduct } from '@api';
-import { Product } from '@models';
+import { getAllBook, getAllClothes, getAllLaptop } from '@api';
+import { Laptop, Book, Clothes } from '@models';
 import { RadioGroup, Pagination } from '@ui';
-import { IconGrid, IconList } from '@components/Icons';
 import { SearchProduct } from '@components/Input';
 import { ModeProductItem } from '@constants';
 import { ProductItem } from '@components/ProductItem';
@@ -14,24 +13,30 @@ const optionsWithDisabled: {
   label: ReactNode;
   value: ModeProductItem;
 }[] = [
-  { label: <IconGrid className='w-5' />, value: 'grid' },
-  { label: <IconList className='w-5' />, value: 'list' },
+  { label: <span>Laptop</span>, value: 'laptop' },
+  { label: <span>Clothes</span>, value: 'clothes' },
+  { label: <span>Book</span>, value: 'book' },
 ];
 
 export const Shop = () => {
   const { t } = useTranslation();
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Clothes[] | Book[] | Laptop[]>([]);
   const [modeProductItem, setModeProductItem] =
-    useState<ModeProductItem>('grid');
+    useState<ModeProductItem>('laptop');
 
   useEffect(() => {
     const handle = async () => {
-      // const res = await getAllProduct();
-      // if (!res) return;
-      // setProducts(res);
+      const res =
+        modeProductItem === 'laptop'
+          ? await getAllLaptop()
+          : modeProductItem === 'clothes'
+          ? await getAllClothes()
+          : await getAllBook();
+      if (!res) return;
+      setProducts(res);
     };
     handle();
-  }, []);
+  }, [modeProductItem]);
 
   return (
     <div className='flex flex-col gap-7'>
@@ -62,7 +67,7 @@ export const Shop = () => {
           <Row gutter={[28, 28]}>
             {products.map((el) => (
               <Col span={24} key={el.id}>
-                <ProductItem mode={modeProductItem} product={el} />
+                <ProductItem product={el} />
               </Col>
             ))}
           </Row>
