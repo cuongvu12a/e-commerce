@@ -7,6 +7,7 @@ export enum ROUTE {
   'CHECKOUT' = '/checkout',
   'LAPTOP' = '/laptop',
   'CLOTHES' = '/clothes',
+  'BOOK' = '/book',
   'DASHBOARD_eCOMMERCE' = '/dashboard/e-commerce',
   'DASHBOARD_ANALYTICS' = '/dashboard/analytics',
   'HOME' = '/',

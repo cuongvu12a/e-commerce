@@ -4,19 +4,19 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import { AspectRatio, Image } from '@components/Image';
 import { Table, Button, Input, Pagination } from '@ui';
-import { Clothes as ClothesModel } from '@models';
-import { getAllClothes, deleteClothes } from '@api';
-import { AddClothes } from './AddClothes';
+import { Book as BookModel } from '@models';
+import { getAllBook, deleteBook } from '@api';
+import { AddBook } from './AddBook';
 
 type DataSource<T> = T & {
   key: string;
 };
 
-export const Clothes = () => {
+export const Book = () => {
   const [delStatus, setDelStatus] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [dataSource, setDataSource] = useState<DataSource<ClothesModel>[]>([]);
-  const [previewData, setPreviewData] = useState<ClothesModel | null>(null);
+  const [dataSource, setDataSource] = useState<DataSource<BookModel>[]>([]);
+  const [previewData, setPreviewData] = useState<BookModel | null>(null);
 
   const columns: TableColumnType<any>[] = useMemo(() => {
     return [
@@ -24,7 +24,7 @@ export const Clothes = () => {
         title: 'Media',
         key: 'media',
         dataIndex: 'material',
-        render: (el: any, record: ClothesModel) => {
+        render: (el: any, record: BookModel) => {
           return (
             <AspectRatio ratio={[16, 9]}>
               <Image src={record.material} />
@@ -46,7 +46,7 @@ export const Clothes = () => {
         title: 'Action',
         key: 'action',
         dataIndex: 'action',
-        render: (el: any, record: ClothesModel) => {
+        render: (el: any, record: BookModel) => {
           return (
             <div className='flex gap-3'>
               <button
@@ -60,7 +60,7 @@ export const Clothes = () => {
               </button>
               <button
                 onClick={async () => {
-                  const res = await deleteClothes(record);
+                  const res = await deleteBook(record);
                   setDelStatus(!res);
                 }}
                 className='text-red-600 text-lg'
@@ -76,10 +76,10 @@ export const Clothes = () => {
 
   useEffect(() => {
     const handle = async () => {
-      const res = await getAllClothes();
+      const res = await getAllBook();
       setDataSource(
         res.map((val) => {
-          const result: DataSource<ClothesModel> = {
+          const result: DataSource<BookModel> = {
             key: `${val.id}`,
             ...val,
           };
@@ -105,7 +105,7 @@ export const Clothes = () => {
             type='primary'
             onClick={() => setVisible(true)}
           >
-            Add Clothes
+            Add Book
           </Button>
         </div>
         <Table
@@ -114,7 +114,7 @@ export const Clothes = () => {
           dataSource={dataSource}
           pagination={false}
         />
-        <AddClothes
+        <AddBook
           data={previewData}
           visible={visible}
           onClose={() => {

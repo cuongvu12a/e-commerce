@@ -7,5 +7,9 @@ export const ENDPOINTS = {
   LOGIN: `login`,
   GET_PROFILE: `users/me`,
   LAPTOPS: `laptops`,
+  CLOTHES: `clothes`,
+  BOOKS: `books`,
+  AUTHORS: `authors`,
+  PUBLISHERS: `publishers`,
   UPLOAD_IMAGE: `${SERVICE.UPLOAD}/image`,
 };

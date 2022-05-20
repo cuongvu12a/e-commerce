@@ -10,6 +10,7 @@ import Wishlist from '@pages/Wishlist';
 import Checkout from '@pages/Checkout';
 import Laptop from '@pages/Laptop';
 import Clothes from '@pages/Clothes';
+import Book from '@pages/Book';
 
 const routes: RouteObject[] = [
   { path: ROUTE.LOGIN, element: <LoginPage /> },
@@ -19,6 +20,7 @@ const routes: RouteObject[] = [
   { path: ROUTE.CHECKOUT, element: <Checkout /> },
   { path: ROUTE.LAPTOP, element: <Laptop /> },
   { path: ROUTE.CLOTHES, element: <Clothes /> },
+  { path: ROUTE.BOOK, element: <Book /> },
   { path: ROUTE.HOME, element: <HomePage /> },
   { path: ROUTE.NOT_FOUND, element: <NotFound /> },
 ];

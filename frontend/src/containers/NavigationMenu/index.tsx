@@ -98,6 +98,11 @@ export const NavigationMenu = () => {
             content={'Clothes'}
             icon={<IconCircle className='w-2' />}
           />
+          <MenuItem
+            key={ROUTE.BOOK}
+            content={'Book'}
+            icon={<IconCircle className='w-2' />}
+          />
         </SubMenu>
       </Menu>
     </NavigationWrapper>

@@ -24,3 +24,26 @@ export interface Clothes extends Product {
   brand: string;
   origin: string;
 }
+
+export interface Book extends Product {
+  ISBN: string;
+  title: string;
+  summary: string;
+  publicationDate: Date;
+  numberOfPage: number;
+  language: string;
+}
+
+export interface Author {
+  id: number;
+  name: string;
+  email: string;
+  address: string;
+  biography: string;
+}
+
+export interface Publisher {
+  id: number;
+  name: string;
+  address: string;
+}
