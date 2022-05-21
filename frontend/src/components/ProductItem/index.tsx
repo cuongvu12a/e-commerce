@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { Button, Ellipsis } from '@ui';
-import { Product } from '@models';
-import { ModeProductItem, ROUTE } from '@constants';
+import { Product, CartPayload, Cart } from '@models';
+import { ROUTE, ModeProductItem } from '@constants';
 import {
   IconShoppingCart,
   IconHeartEmpty,
@@ -16,12 +16,21 @@ import {
   IconRemove,
 } from '@components/Icons';
 import { AspectRatio, Image } from '@components/Image';
+import { createCarts, deleteCart } from '@api';
 
 interface ProductItemProps {
-  product: Product;
+  product: Product | undefined;
+  mode: ModeProductItem;
+  isFromCart?: boolean;
+  setProduct?: React.Dispatch<React.SetStateAction<Cart[]>>;
 }
 
-export const ProductItem = ({ product }: ProductItemProps) => {
+export const ProductItem = ({
+  product,
+  mode,
+  isFromCart = false,
+  setProduct,
+}: ProductItemProps) => {
   const { t } = useTranslation();
 
   return (
@@ -30,7 +39,7 @@ export const ProductItem = ({ product }: ProductItemProps) => {
         <div className='mx-auto' style={{ maxWidth: '10rem' }}>
           <Link to={ROUTE.SHOP}>
             <AspectRatio ratio={[3, 4]}>
-              <Image src={product.material} />
+              <Image src={product?.material || ''} />
             </AspectRatio>
           </Link>
         </div>
@@ -40,7 +49,7 @@ export const ProductItem = ({ product }: ProductItemProps) => {
           to={ROUTE.SHOP}
           className='text-gray-700 dark:text-neutral-700 hover:text-violet-600 dark:hover:text-violet-600 font-semibold'
         >
-          {product.name}
+          {product?.name}
         </Link>
         <span className='text-gray-800 dark:text-neutral-800 text-xs'>
           By&nbsp;
@@ -63,7 +72,7 @@ export const ProductItem = ({ product }: ProductItemProps) => {
           className='text-gray-700 dark:text-neutral-700'
           style={{ lineHeight: 1.5 }}
         >
-          {product.description}
+          {product?.description || ''}
         </Ellipsis>
       </Col>
       <Col
@@ -71,12 +80,8 @@ export const ProductItem = ({ product }: ProductItemProps) => {
         className='flex flex-col justify-center p-4 border-l border-gray-200 dark:border-neutral-200'
       >
         <span className='text-center text-lg font-medium text-violet-600'>
-          {`$${product.price}`}
+          {`$${product?.price}`}
         </span>
-        {/* <Button palette='primary' className='flex items-center w-full mt-4'>
-          <IconRemove className='w-4 ' />
-          <span className='text-sm'>{t`button.remove`}</span>
-        </Button> */}
         <Button
           palette='primary'
           type={'primary'}
@@ -85,14 +90,45 @@ export const ProductItem = ({ product }: ProductItemProps) => {
           <IconHeartEmpty className={`w-4  ${'text-white'}`} />
           <span className='text-sm'>{t`button.wishlist`}</span>
         </Button>
-        <Button
-          palette='primary'
-          type='primary'
-          className='flex items-center w-full mt-4'
-        >
-          <IconShoppingCart className='w-4' />
-          <span className='text-sm'>{t`button.addToCart`}</span>
-        </Button>
+        {isFromCart ? (
+          <Button
+            palette='primary'
+            className='flex items-center w-full mt-4'
+            onClick={async () => {
+              // const res = await deleteCart(product?.id || '');
+              setProduct &&
+                setProduct((currentValue) => {
+                  const res: Cart[] = [...currentValue];
+                  const idx = res.findIndex((val) => val?.id === product?.id);
+                  res.splice(idx, 1);
+                  return res;
+                });
+            }}
+          >
+            <IconRemove className='w-4 ' />
+            <span className='text-sm'>{t`button.remove`}</span>
+          </Button>
+        ) : (
+          <Button
+            palette='primary'
+            type='primary'
+            className='flex items-center w-full mt-4'
+            onClick={async () => {
+              const currentCart: CartPayload = {};
+              if (mode === 'book') {
+                currentCart.bookId = `${product?.id}`;
+              } else if (mode === 'clothes') {
+                currentCart.clothesId = `${product?.id}`;
+              } else {
+                currentCart.laptopId = `${product?.id}`;
+              }
+              const res = await createCarts(currentCart);
+            }}
+          >
+            <IconShoppingCart className='w-4' />
+            <span className='text-sm'>{t`button.addToCart`}</span>
+          </Button>
+        )}
       </Col>
     </ProductItemWrapper>
   );

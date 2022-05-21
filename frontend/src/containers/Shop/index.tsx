@@ -4,7 +4,7 @@ import { Row, Col } from 'antd';
 
 import { getAllBook, getAllClothes, getAllLaptop } from '@api';
 import { Laptop, Book, Clothes } from '@models';
-import { RadioGroup, Pagination } from '@ui';
+import { RadioGroup } from '@ui';
 import { SearchProduct } from '@components/Input';
 import { ModeProductItem } from '@constants';
 import { ProductItem } from '@components/ProductItem';
@@ -67,16 +67,10 @@ export const Shop = () => {
           <Row gutter={[28, 28]}>
             {products.map((el) => (
               <Col span={24} key={el.id}>
-                <ProductItem product={el} />
+                <ProductItem product={el} mode={modeProductItem}/>
               </Col>
             ))}
           </Row>
-          <Pagination
-            palette='primary'
-            containerClass='flex justify-center mt-7'
-            defaultCurrent={1}
-            total={50}
-          />
         </Col>
       </Row>
     </div>

@@ -46,3 +46,14 @@ export interface Publisher {
   name: string;
   address: string;
 }
+
+interface CartDefault<T> {
+  clothesId?: T;
+  bookId?: T;
+  laptopId?: T;
+}
+export interface CartPayload extends CartDefault<string> {}
+
+export interface Cart extends CartDefault<Product> {
+  id: number
+}

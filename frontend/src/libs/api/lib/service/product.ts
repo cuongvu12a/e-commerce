@@ -1,7 +1,15 @@
 import API from '../axios';
 import { ENDPOINTS } from '../endpoints';
 
-import { Laptop, Clothes, Book, Author, Publisher } from '@models';
+import {
+  Laptop,
+  Clothes,
+  Book,
+  Author,
+  Publisher,
+  CartPayload,
+  Cart,
+} from '@models';
 
 const { post, get, put } = API;
 
@@ -46,3 +54,15 @@ export const getAllAuthor = (): Promise<Author[]> =>
 
 export const getAllPublisher = (): Promise<Publisher[]> =>
   get(ENDPOINTS.PUBLISHERS).then((res) => res.data);
+
+export const createCarts = (payload: CartPayload): Promise<any> =>
+  post(ENDPOINTS.CARTS, payload).then((res) => res.data);
+
+export const getAllCarts = (): Promise<Cart[]> =>
+  get(ENDPOINTS.CARTS).then((res) => res.data);
+
+export const deleteCart = (payload: string | number): Promise<Cart> =>
+  API.delete(`${ENDPOINTS.CARTS}/${payload}`).then((res) => res.data);
+
+export const createOrder = (payload: { carts: number[] }): Promise<any> =>
+  post(ENDPOINTS.CARTS, payload).then((res) => res.data);

@@ -11,5 +11,7 @@ export const ENDPOINTS = {
   BOOKS: `books`,
   AUTHORS: `authors`,
   PUBLISHERS: `publishers`,
+  CARTS: `carts`,
+  ORDERS: `orders`,
   UPLOAD_IMAGE: `${SERVICE.UPLOAD}/image`,
 };

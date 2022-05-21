@@ -4,18 +4,21 @@ import { Row, Col } from 'antd';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 import { replaceArrayNumberFromText } from '@utils';
-import { Product } from '@models';
+import { Cart } from '@models';
 import { Pagination } from '@ui';
 import { ProductItem } from '@components/ProductItem';
 import { Divider } from '@components/Divider';
+import { getAllCarts, createOrder } from '@api';
 
 export const Checkout = () => {
   const { t } = useTranslation();
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Cart[]>([]);
 
   useEffect(() => {
     const handle = async () => {
-      // setProducts(res.data);
+      const res = await getAllCarts();
+      console.log(res);
+      setProducts(res);
     };
     handle();
   }, []);
@@ -23,30 +26,43 @@ export const Checkout = () => {
   return (
     <div className='flex flex-col gap-7'>
       <Row gutter={28}>
-        <Col span={18}>
+        <Col span={16} xxl={18}>
           <Row gutter={[28, 28]}>
             {products.map((el) => (
               <Col span={24} key={el.id}>
-                <ProductItem product={el} />
+                {(el?.bookId || el.clothesId || el?.laptopId) && (
+                  <ProductItem
+                    product={el?.bookId || el.clothesId || el?.laptopId}
+                    mode={
+                      el?.bookId ? 'book' : el?.clothesId ? 'clothes' : 'laptop'
+                    }
+                    isFromCart
+                    setProduct={setProducts}
+                  />
+                )}
               </Col>
             ))}
           </Row>
-          <Pagination
-            palette='primary'
-            containerClass='flex justify-center mt-7'
-            defaultCurrent={1}
-            total={50}
-          />
         </Col>
-        <Col span={6}>
+        <Col span={8} xxl={6}>
           <div className='bg-gray-50 dark:bg-neutral-50 p-5 rounded-md section-shadow'>
             <h4 className='mb-5 text-gray-800 dark:text-neutral-800 font-medium text-lg'>{t`title.priceDetails`}</h4>
             <div className='flex justify-between mb-3'>
               <h5 className='text-gray-700 dark:text-neutral-700'>
-                {replaceArrayNumberFromText(t`content.priceOfItems`, [3])}
+                {replaceArrayNumberFromText(t`content.priceOfItems`, [
+                  products.length,
+                ])}
               </h5>
               <span className='text-gray-700 dark:text-neutral-700 font-semibold'>
-                $699.30
+                {`$${products.reduce((total: number, value) => {
+                  let sum = 0;
+                  sum +=
+                    value?.bookId?.price ||
+                    value?.clothesId?.price ||
+                    value?.laptopId?.price ||
+                    0;
+                  return total + sum;
+                }, 0)}`}
               </span>
             </div>
             <div className='flex justify-between mb-3'>
@@ -62,24 +78,38 @@ export const Checkout = () => {
             >
               <PayPalButtons
                 createOrder={(data, actions) => {
-                  console.log('createOrder');
-
                   return actions.order.create({
                     purchase_units: [
                       {
                         amount: {
-                          value: '1.99',
+                          value: '1'
+                          // value: `${products.reduce((total: number, value) => {
+                          //   let sum = 0;
+                          //   sum +=
+                          //     value?.bookId?.price ||
+                          //     value?.clothesId?.price ||
+                          //     value?.laptopId?.price ||
+                          //     0;
+                          //   return total + sum;
+                          // }, 0)}`,
                         },
                       },
                     ],
                   });
                 }}
                 onApprove={(data, actions) => {
-                  console.log('onApprove');
                   if (!actions || !actions?.order) return new Promise(() => {});
-                  return actions.order.capture().then((details) => {
-                    const name = details?.payer?.name?.given_name;
-                    console.log(name);
+                  return actions.order.capture().then(async (details) => {
+                    const carts = products.map(
+                      (el) =>
+                        el?.bookId?.id ||
+                        el?.clothesId?.id ||
+                        el?.laptopId?.id ||
+                        0
+                    );
+                    const res = await createOrder({ carts });
+                    if (!res) return;
+                    setProducts([]);
                   });
                 }}
               />

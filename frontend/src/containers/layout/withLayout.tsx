@@ -24,7 +24,7 @@ export const withLayout = (Component: React.FC) => () => {
       <Col className='flex-1 h-full'>
         <Scrollbars>
           <div className='flex flex-col min-h-full py-3 px-8'>
-            <div className='sticky top-0 left-0 right-0 pb-8 bg-gray-100 dark:bg-neutral-100'>
+            <div className='sticky top-0 left-0 right-0 pb-8 bg-gray-100 dark:bg-neutral-100 z-50'>
               <TopBar />
             </div>
             <Component />

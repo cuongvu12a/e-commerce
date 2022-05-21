@@ -24,7 +24,7 @@ export const NavigationMenu = () => {
   };
 
   return (
-    <NavigationWrapper className='h-full bg-gray-50 dark:bg-neutral-50 py-8 px-4 w-64'>
+    <NavigationWrapper className='h-full bg-gray-50 dark:bg-neutral-50 py-8 px-4 w-60'>
       <div className='mb-2 px-4'>
         <Link to={ROUTE.HOME}>
           <Logo />
